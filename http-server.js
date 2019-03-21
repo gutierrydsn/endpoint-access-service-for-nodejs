@@ -21,12 +21,14 @@ function HttpServer(pPort, pRoute, pPathControllers){
         httpRoute.req = req; 
         httpRoute.res = res;
 
+        console.log(httpRoute);
+
         var head = {
             'Content-Type': 'application/json; charset=utf-8'
         }
         
         try {            
-            var result = httpRoute.response();
+            var result = JSON.stringify(httpRoute.response());
             res.writeHead(res.statusCode , head);
             res.end(result);
         }
