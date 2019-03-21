@@ -1,6 +1,6 @@
 {
   "name": "endpoint-access-service-for-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "framework for connection http rest\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D single rest",
   "main": "http-server.js",
   "scripts": {

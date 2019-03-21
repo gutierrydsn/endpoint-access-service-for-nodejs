@@ -1,4 +1,4 @@
-function HttpRoute(req, res, pathControllers) {
+function HttpRoute(req, res, route, pathControllers) {
     
     const PREFIX_PARAMETER = ':';
     const BACK_SLASH       = '/';
@@ -7,12 +7,11 @@ function HttpRoute(req, res, pathControllers) {
     const END_PARAM        = ')';
     const PARTING          = ',';
     const EMPTY_STR        = '' ;
-
-    const route = require('./route').route;
-    
+   
     this.pathControllers = pathControllers;
     this.req = req; 
-    this.res = res;    
+    this.res = res; 
+    this.route = route;   
 
     this.response              = response;
     this.endPoint              = endPoint;
@@ -43,7 +42,7 @@ function HttpRoute(req, res, pathControllers) {
 
     function getEndPoint(uri, type){
         var blocks_uri  = this.removeBackSlash(uri).split(BACK_SLASH);
-        var list_routes = route[type];
+        var list_routes = this.route[type];
 
         data_route = undefined;
         for (var item in list_routes){
