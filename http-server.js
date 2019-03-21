@@ -1,10 +1,11 @@
-function HttpServer(pPort, pPathControllers){
+function HttpServer(pPort, pRoute, pPathControllers){
     
-    const route = require('./http-route');
+    const Route = require('./http-route');
 
     this.start = start;
     
-    var pathControllers = pPathControllers || './';
+    var route = pRoute || require('../../route').route;
+    var pathControllers = pPathControllers || '../../';
 
     const http  = require('http' );
 
@@ -13,8 +14,9 @@ function HttpServer(pPort, pPathControllers){
     var port = pPort;
 
     function response(req, res){        
-        var httpRoute = new route.HttpRoute();
+        var httpRoute = new Route.HttpRoute();
 
+        httpRoute.route = route; 
         httpRoute.pathControllers = pathControllers;
         httpRoute.req = req; 
         httpRoute.res = res;
