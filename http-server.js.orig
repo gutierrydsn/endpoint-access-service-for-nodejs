@@ -14,7 +14,8 @@ function HttpServer(pPort, pRoute, pPathControllers){
         httpRoute.route = this.route; 
         httpRoute.req   = req; 
         httpRoute.res   = res;
-       
+<<<<<<< HEAD
+      
         res._headers = {
             "Content-Type": "application/json; charset=utf-8"
         };
@@ -32,7 +33,7 @@ function HttpServer(pPort, pRoute, pPathControllers){
                 "Access-Control-Allow-Methods"     : '*'
             }   
         };
-	
+        
         var body = '';
         req.on('data', chunk => {
             body += chunk.toString(); // convert Buffer to string
@@ -54,7 +55,38 @@ function HttpServer(pPort, pRoute, pPathControllers){
             } 
         });  
 
-   }
+=======
+       
+        res._headers = {
+            "Content-Type": "application/json; charset=utf-8"
+        };
+
+        if (this.allowAllCors){
+            res._headers = {
+                "Content-Type"                     : "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin"      : "*",
+                "origin"                           : '*',
+                "Access-Control-Allow-Headers"     : '*',
+                "Access-Control-Expose-Headers"    : '*',
+                "Access-Control-Request-Method"    : '*',
+                "Access-Control-Request-Headers"   : '*',
+                "Access-Control-Allow-Credentials" : 'true',
+                "Access-Control-Allow-Methods"     : '*'
+            }   
+        };
+
+        try {            
+            var result = httpRoute.response();   
+
+            if (result) res.end(JSON.stringify(result));
+        }
+        catch (e){
+            res.statusCode = 500;
+            res.end('Error:' + e.message);
+            console.log(e);
+        }        
+>>>>>>> 55cff661dc27ffe7349bb3308e030ff305215f7c
+    }
 
     this.start = () => {
         const server = http.createServer(function (req, res){response(req, res)} );

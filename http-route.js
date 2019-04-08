@@ -1,12 +1,13 @@
 function HttpRoute(req, res, route, pathControllers) {
     
-    const PREFIX_PARAMETER = ':';
-    const BACK_SLASH       = '/';
-    const POINT_STR        = '.';
-    const START_PARAM      = '(';
-    const END_PARAM        = ')';
-    const PARTING          = ',';
-    const EMPTY_STR        = '' ;
+    const PREFIX_PARAMETER  = ':';
+    const PREFIX_QUERY_PARM = '?';
+    const BACK_SLASH        = '/';
+    const POINT_STR         = '.';
+    const START_PARAM       = '(';
+    const END_PARAM         = ')';
+    const PARTING           = ',';
+    const EMPTY_STR         = '' ;
    
     this.pathControllers = pathControllers;
     this.req = req; 
@@ -35,6 +36,7 @@ function HttpRoute(req, res, route, pathControllers) {
 
         if (!data_route){
             this.res.statusCode = 404;
+            this.res.end();
         }
 
         return data_route ? this.callMethod(data_route) : '404';
@@ -95,8 +97,11 @@ function HttpRoute(req, res, route, pathControllers) {
     }
 
     function removeBackSlash(value){
+        var posQueryParam = value.indexOf(PREFIX_QUERY_PARM); 
+        value = posQueryParam == -1 ? value : value.slice(0, posQueryParam); 
+
         var lastChar = value.length-1; 
-        return value[lastChar] != BACK_SLASH ? value : value.slice(lastChar, lastChar+1);
+        return value[lastChar] != BACK_SLASH ? value : value.slice(0, lastChar);
     }
 
     function getArgs(blocks_route, blocks_uri){
